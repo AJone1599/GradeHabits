@@ -5,6 +5,7 @@ import LandingPage from "./components/LandingPage";
 import SurveyForm from "./components/SurveyForm";
 import ResultsPage from "./components/ResultsPage";
 import AboutPage from "./components/AboutPage"; // Optional
+import AuthPage from "./components/AuthPage";
 
 export default function App() {
   return (
@@ -15,7 +16,8 @@ export default function App() {
         <Route path="/survey" element={<SurveyForm />} />
         <Route path="/results" element={<ResultsPage />} />
         <Route path="/about" element={<AboutPage />} />
-        {/* Add more routes here as needed */}
+        <Route path="/auth" element={<AuthPage />} />
+        
       </Routes>
     </Router>
   );

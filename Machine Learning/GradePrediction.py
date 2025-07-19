@@ -5,14 +5,12 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 import joblib
 
-train_path = 'Machine Learning/train.csv'
-test_path = 'Machine Learning/test.csv'
+train_path = 'Dataset/complete_full_dataset.csv'
 
 def load_data():
     train_data = pd.read_csv(train_path)
-    test_data = pd.read_csv(test_path)
-    return train_data, test_data
-train_data, test_data = load_data()
+    return train_data
+train_data = load_data()
 X = train_data.drop(columns=['gpa'])
 y = train_data['gpa']
 
@@ -21,8 +19,9 @@ model = LGBMRegressor()
 model.fit(train_X, train_y)
 predictions = model.predict(val_X)
 val_mae = mean_absolute_error(predictions, val_y)
-print("Validation MAE: {:,.0f}".format(val_mae))
+print(f"Validation MAE: {val_mae:.4f}")
 
 explainer = shap.Explainer(model, train_X)
 shap_values = explainer(val_X)
-joblib.dump(model, '/Machine Learning/gradePredictionModel.pkl')
+# Save model using a Windows-compatible path
+joblib.dump(model, 'Machine Learning/gradePredictionModel.pkl')

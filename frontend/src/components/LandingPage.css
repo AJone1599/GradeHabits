@@ -1,91 +1,147 @@
 .landing-container {
-  max-width: 700px;
-  margin: 100px auto 50px; /* top space to clear NavBar */
+  max-width: 720px;
+  margin: 100px auto 60px;
   padding: 0 20px;
-  font-family: "Roboto", sans-serif;
-  color: #1d2d29;
+  background-color: var(--color-background-blue);
+  color: var(--color-text-main);
+  font-family: "Open Sans", sans-serif;
+  line-height: 1.6;
 }
 
 .hero {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 70px;
 }
 
 .hero-title {
-  font-size: 2.5rem;
-  font-weight: 900;
-  margin-bottom: 15px;
-  color: #31708e; /* teal */
+  font-family: "Lora", serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--color-primary-blue);
+  margin-bottom: 20px;
+  line-height: 1.1;
 }
 
-.hero-description {
-  font-size: 1.2rem;
-  margin-bottom: 25px;
-  color: #42545f;
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 35px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .start-survey-btn {
-  background-color: #31708e;
-  color: white;
+  background-color: var(--color-primary-blue);
+  color: var(--color-white);
   font-weight: 700;
-  font-size: 1.1rem;
-  padding: 14px 32px;
+  font-size: 1.2rem;
+  padding: 16px 48px;
   border: none;
-  border-radius: 12px;
+  border-radius: 20px;
   cursor: pointer;
-  box-shadow: 0 6px 15px rgba(49, 112, 142, 0.4);
-  transition: background-color 0.3s ease;
+  box-shadow: 0 6px 20px rgba(90, 155, 213, 0.4);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 50px;
 }
 
-.start-survey-btn:hover {
+.start-survey-btn:hover,
+.start-survey-btn:focus {
   background-color: #4ba3c3;
+  box-shadow: 0 8px 30px rgba(74, 138, 202, 0.5);
+  outline: none;
 }
 
 .how-it-works {
   text-align: center;
-}
-
-.how-it-works h2 {
-  font-size: 1.8rem;
-  margin-bottom: 30px;
-  font-weight: 700;
-  color: #31708e;
+  margin-bottom: 60px;
 }
 
 .steps {
   display: flex;
-  justify-content: space-around;
-  gap: 20px;
+  justify-content: space-between;
+  gap: 25px;
+  flex-wrap: wrap;
 }
 
 .step {
-  background-color: #e6f2f0; /* soft mint */
-  padding: 20px 15px;
-  border-radius: 15px;
-  width: 150px;
-  box-shadow: 0 6px 15px rgba(49, 112, 142, 0.1);
-  font-weight: 600;
-  color: #31708e;
-  user-select: none;
+  background-color: var(--color-primary-blue);
+  color: var(--color-white);
+  border-radius: 20px;
+  padding: 28px 24px;
+  flex: 1 1 220px;
+  box-shadow: 0 6px 18px rgba(90, 155, 213, 0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease;
 }
 
-.step-number {
-  font-size: 2.5rem;
-  font-weight: 900;
-  margin-bottom: 10px;
-  color: #4ba3c3;
+.step:hover,
+.step:focus-within {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 30px rgba(90, 155, 213, 0.5);
+}
+
+.step-icon {
+  font-size: 3.8rem;
+  margin-bottom: 18px;
+}
+
+.step h3 {
+  font-family: "Lora", serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.step p {
+  font-size: 1.05rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* Why GradeHabits */
+
+.why-gradehabits {
+  margin-bottom: 80px;
+  color: var(--color-text-main);
+}
+
+.why-gradehabits h2 {
+  font-family: "Lora", serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-primary-blue);
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.why-gradehabits ul {
+  list-style: disc inside;
+  max-width: 620px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  padding-left: 0;
+  color: var(--color-text-main);
+}
+
+.why-gradehabits li {
+  margin-bottom: 16px;
 }
 
 /* Responsive */
 
-@media (max-width: 600px) {
+@media (max-width: 680px) {
   .steps {
     flex-direction: column;
-    gap: 25px;
-    align-items: center;
+    gap: 30px;
   }
-  
+
   .step {
-    width: 80%;
+    flex: none;
+    width: 100%;
   }
 }
+
