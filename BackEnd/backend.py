@@ -19,27 +19,30 @@ def predict():
     #prediction = model.predict([answers])
 
     prediction = 0  # Placeholder for actual prediction logic
-
-    '''    try:
+    deployed_prompt_name = 'your-vellum-prompt-or-workflow-name'
+    try:
         # Call the Vellum API with your prompt/workflow name and input variables
-        response = vellum.generate_completion(
+        response = Vellum.generate_completion(
             deployment_name=deployed_prompt_name,
             prompt_variables={
-                "user_input": user_input, # Map your user input to the variable in your Vellum prompt
+                "user_input": user_answers, # Map your user input to the variable in your Vellum prompt
             },
         )
 
         # Extract the AI's response from Vellum's output
         ai_response = response.results[0].text # Adjust based on Vellum's actual response structure
 
-        return jsonify({"responseFromAI": ai_response})
+        return jsonify({
+            'prediction': prediction,
+            "responseFromAI": ai_response
+            })
 
     except Exception as e:
         print(f"Error calling Vellum API: {e}")
-        return jsonify({"error": "Failed to get response from AI"}), 500
-    '''
-
-    return jsonify({'prediction': prediction})
+        return jsonify({
+            'prediction': prediction,
+            "error": "Failed to get response from AI"
+            }), 500
 
 
 if __name__ == '__main__':
