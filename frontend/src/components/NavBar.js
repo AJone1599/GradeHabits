@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import logo from "../logo.png";
 import "./NavBar.css";
 
 export default function NavBar() {
