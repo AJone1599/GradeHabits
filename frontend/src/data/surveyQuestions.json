@@ -1,0 +1,110 @@
+{
+  "cards": [
+    {
+      "title": "🎓 Academic Background",
+      "questions": [
+        {
+          "name": "age",
+          "type": "number",
+          "question": "How old are you?",
+          "required": true
+        },
+        {
+          "name": "application_order",
+          "type": "radio",
+          "question": "Was this major your first choice when applying?",
+          "options": [
+            { "label": "First choice", "value": "1" },
+            { "label": "Second choice", "value": "2" },
+            { "label": "Third choice", "value": "3" },
+            { "label": "Fourth or later", "value": "4+" }
+          ],
+          "required": true
+        },
+        {
+          "name": "previous_qualifications",
+          "type": "number",
+          "question": "How many academic qualifications (e.g., diplomas, certificates) did you earn before starting this program?",
+          "required": true
+        }
+      ]
+    },
+    {
+      "title": "📖 Study Habits & Class Attendance",
+      "questions": [
+        {
+          "name": "study_time_week",
+          "type": "number",
+          "question": "On average, how many hours per week do you study outside of class?",
+          "required": true
+        },
+        {
+          "name": "attendance",
+          "type": "number",
+          "question": "Roughly how many classes do you attend per month?",
+          "required": true
+        },
+        {
+          "name": "evening_classes",
+          "type": "radio",
+          "question": "Are most of your classes scheduled during the daytime or in the evening?",
+          "options": [
+            { "label": "Daytime", "value": "0" },
+            { "label": "Evening", "value": "1" }
+          ],
+          "required": true
+        }
+      ]
+    },
+    {
+      "title": "🏃 Commitments Outside Class",
+      "questions": [
+        {
+          "name": "work",
+          "type": "radio",
+          "question": "Do you currently work part-time during the semester?",
+          "options": [
+            { "label": "Yes", "value": "1" },
+            { "label": "No", "value": "0" }
+          ],
+          "required": true
+        },
+        {
+          "name": "extracurriculars",
+          "type": "radio",
+          "question": "Are you actively involved in any extracurricular activities?",
+          "options": [
+            { "label": "Yes", "value": "1" },
+            { "label": "No", "value": "0" }
+          ],
+          "required": true
+        }
+      ]
+    },
+    {
+      "title": "🧠 Health & Well-being",
+      "questions": [
+        {
+          "name": "average_sleep",
+          "type": "number",
+          "question": "On average, how many hours do you sleep each day?",
+          "required": true
+        },
+        {
+          "name": "entertainment_hours",
+          "type": "number",
+          "question": "How many hours per day do you spend on entertainment (e.g., video games, Netflix)?",
+          "required": true
+        },
+        {
+          "name": "mental_health",
+          "type": "likert",
+          "question": "How would you rate your overall mental health this semester?",
+          "scale": [0,1,2,3,4,5,6,7,8,9,10],
+          "scaleLabels": ["Best","","","","","","","","","","Worst"],
+          "required": true
+        }
+      ]
+    }
+  ]
+}
