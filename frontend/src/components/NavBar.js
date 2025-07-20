@@ -1,8 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 import "./NavBar.css";
 
 export default function NavBar() {
+  const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
+
   return (
     <nav className="navbar">
       <div className="navbar-logo">GradeHabits</div>
@@ -27,12 +30,21 @@ export default function NavBar() {
           About
         </NavLink>
         {/* Single Login/Sign Up link */}
-        <NavLink
-          to="/auth"
-          className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
-        >
-          Login / Sign Up
-        </NavLink>
+        {isAuthenticated ? (
+          <button
+            className="nav-link nav-button"
+            onClick={() => logout({ returnTo: window.location.origin })}
+          >
+            Log Out
+          </button>
+        ) : (
+          <button
+            className="nav-link nav-button"
+            onClick={() => loginWithRedirect()}
+          >
+            Login / Sign Up
+          </button>
+        )}
       </div>
     </nav>
   );

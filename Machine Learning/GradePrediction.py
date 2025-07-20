@@ -6,7 +6,7 @@ import pandas as pd
 import joblib
 import matplotlib.pyplot as plt
 
-train_path = 'Dataset/complete_full_dataset.csv'
+train_path = 'complete_full_dataset.csv'
 
 def load_data():
     train_data = pd.read_csv(train_path)

@@ -1,44 +1,23 @@
-import React, { useState } from "react";
-import "./AuthPage.css";
+import React from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function AuthPage() {
-  const [isLogin, setIsLogin] = useState(true);
+  const { loginWithRedirect, logout, isAuthenticated, user, isLoading } = useAuth0();
+
+  if (isLoading) return <p>Loading...</p>;
 
   return (
     <div className="auth-container">
-      {isLogin ? (
-        <>
-          <h2>Login</h2>
-          <form onSubmit={(e) => e.preventDefault()} className="auth-form">
-            <label>Email</label>
-            <input type="email" required placeholder="you@example.com" />
-            <label>Password</label>
-            <input type="password" required placeholder="Enter your password" />
-            <button type="submit">Login</button>
-          </form>
-          <p className="toggle-text">
-            Don't have an account?{" "}
-            <button onClick={() => setIsLogin(false)} className="toggle-btn">
-              Sign up
-            </button>
-          </p>
-        </>
+      <h2>{isAuthenticated ? "Welcome" : "Login"}</h2>
+
+      {!isAuthenticated ? (
+        <button onClick={() => loginWithRedirect()}>Log In / Sign Up</button>
       ) : (
         <>
-          <h2>Sign Up</h2>
-          <form onSubmit={(e) => e.preventDefault()} className="auth-form">
-            <label>Email</label>
-            <input type="email" required placeholder="you@example.com" />
-            <label>Password</label>
-            <input type="password" required placeholder="Create a password" />
-            <button type="submit">Sign Up</button>
-          </form>
-          <p className="toggle-text">
-            Already have an account?{" "}
-            <button onClick={() => setIsLogin(true)} className="toggle-btn">
-              Login
-            </button>
-          </p>
+          <p>Hello, {user.name}</p>
+          <button onClick={() => logout({ returnTo: window.location.origin })}>
+            Log Out
+          </button>
         </>
       )}
     </div>
