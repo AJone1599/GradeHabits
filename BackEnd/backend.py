@@ -13,7 +13,7 @@ load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
 #Load the pre-trained model
 model = joblib.load('MachineLearning\gradePredictionModel.pkl')
 
-# --- Vellum Configuration ---
+#Initialize Vellum client
 client = Vellum(
   api_key=os.environ["VELLUM_API_KEY"]
 )
@@ -97,7 +97,8 @@ def predict():
                 ai_response = str(vellum_response)
         else:
             ai_response = str(vellum_response)
-
+        print(prediction)
+        print(ai_response)
         return jsonify({
             'prediction': prediction,
             "responseFromAI": ai_response

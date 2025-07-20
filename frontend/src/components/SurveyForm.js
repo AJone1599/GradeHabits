@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SurveyForm.css";
 
-// 1️⃣ Import the JSON you created
+// Import the survey schema
 import surveyData from "../data/surveyQuestions.json";
-
-// 2️⃣ Use its `cards` array
 const cards = surveyData.cards;
 
 export default function SurveyForm() {
@@ -45,13 +43,55 @@ export default function SurveyForm() {
     if (!validateCard()) return;
     if (currentCard < cards.length - 1) {
       setCurrentCard(currentCard + 1);
-    } else {
-      setLoading(true);
-      setTimeout(() => {
-        setLoading(false);
-        navigate("/results");
-      }, 1500);
+      return;
     }
+    // On last card, submit the form
+    handleSubmit();
+  };
+
+  const handleSubmit = (e) => {
+    if (e) e.preventDefault();
+    // Convert number fields to numbers
+    const payload = { ...formData };
+    const numberFields = [
+      "age",
+      "application_order",
+      "study_time_week",
+      "evening_classes",
+      "attendance",
+      "extracurriculars",
+      "previous_qualifications",
+      "displaced",
+      "entertainment_hours",
+      "work",
+      "average_sleep",
+      "mental_health"
+    ];
+    numberFields.forEach((field) => {
+      if (payload[field] !== undefined) {
+        payload[field] = Number(payload[field]);
+      }
+    });
+    console.log("Submitting payload:", payload);
+    setLoading(true);
+    fetch("http://localhost:5000/api/predict", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then((data) => {
+        setLoading(false);
+        console.log("Backend response:", data);
+        navigate("/results", { state: { result: data } });
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.error("Submission error:", err);
+      });
   };
 
   const handleBack = () => {
@@ -59,72 +99,72 @@ export default function SurveyForm() {
   };
 
   const renderQuestion = (q) => {
-    switch (q.type) {
-      case "number":
-        return (
-          <div key={q.name} className="question-block">
-            <label htmlFor={q.name} className="question-text">
-              {q.question}
-            </label>
-            <input
-              id={q.name}
-              name={q.name}
-              type="number"
-              min="0"
-              value={formData[q.name] || ""}
-              onChange={(e) => handleChange(q.name, e.target.value)}
-            />
-            {errors[q.name] && <p className="error">{errors[q.name]}</p>}
-          </div>
-        );
-
-      case "radio":
-        return (
-          <div key={q.name} className="question-block">
-            <label className="question-text">{q.question}</label>
-            <div className="radio-options">
-              {q.options.map((opt) => (
-                <label key={opt.value} className="radio-label">
-                  <input
-                    type="radio"
-                    name={q.name}
-                    value={opt.value}
-                    checked={formData[q.name] === opt.value}
-                    onChange={() => handleChange(q.name, opt.value)}
-                  />
-                  {opt.label}
-                </label>
-              ))}
-            </div>
-            {errors[q.name] && <p className="error">{errors[q.name]}</p>}
-          </div>
-        );
-
-      case "likert":
-        return (
-          <div key={q.name} className="question-block likert-block">
-            <label className="question-text">{q.question}</label>
-            <div className="likert-options">
-              {q.scale.map((val, i) => (
-                <label key={val} className="likert-label">
-                  <input
-                    type="radio"
-                    name={q.name}
-                    value={val}
-                    checked={formData[q.name] === val}
-                    onChange={() => handleChange(q.name, val)}
-                  />
-                  {q.scaleLabels[i] || val}
-                </label>
-              ))}
-            </div>
-            {errors[q.name] && <p className="error">{errors[q.name]}</p>}
-          </div>
-        );
-
-      default:
-        return null;
+    if (q.type === "number") {
+      return (
+        <div key={q.name} className="question-block">
+          <label htmlFor={q.name} className="question-text">
+            {q.question}
+          </label>
+          <input
+            id={q.name}
+            name={q.name}
+            type="number"
+            min="0"
+            value={formData[q.name] || ""}
+            onChange={(e) => handleChange(q.name, e.target.value)}
+          />
+          {errors[q.name] && <p className="error">{errors[q.name]}</p>}
+        </div>
+      );
     }
+
+    if (q.type === "radio") {
+      return (
+        <div key={q.name} className="question-block">
+          <label className="question-text">{q.question}</label>
+          <div className="radio-options">
+            {q.options.map((opt) => (
+              <label key={opt.value} className="radio-label">
+                <input
+                  type="radio"
+                  name={q.name}
+                  value={opt.value}
+                  checked={formData[q.name] === opt.value}
+                  onChange={() => handleChange(q.name, opt.value)}
+                />
+                {opt.label}
+              </label>
+            ))}
+          </div>
+          {errors[q.name] && <p className="error">{errors[q.name]}</p>}
+        </div>
+      );
+    }
+
+    if (q.type === "likert") {
+      return (
+        <div key={q.name} className="question-block likert-block">
+          <label className="question-text">{q.question}</label>
+          <div className="likert-options">
+            {q.scale.map((val, i) => (
+              <label key={val} className="likert-label">
+                <input
+                  type="radio"
+                  name={q.name}
+                  value={val}
+                  checked={formData[q.name] === val}
+                  onChange={() => handleChange(q.name, val)}
+                />
+                {q.scaleLabels[i] || val}
+              </label>
+            ))}
+          </div>
+          {errors[q.name] && <p className="error">{errors[q.name]}</p>}
+        </div>
+      );
+    }
+
+    return null;
   };
 
   return (
@@ -132,7 +172,7 @@ export default function SurveyForm() {
       <h2 id="survey-heading" className="survey-title">
         {cards[currentCard].title}
       </h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         {cards[currentCard].questions.map(renderQuestion)}
         <div className="form-navigation">
           <button type="button" onClick={handleBack} disabled={currentCard === 0}>
@@ -142,7 +182,11 @@ export default function SurveyForm() {
             {currentCard + 1} / {cards.length}
           </span>
           <button type="button" onClick={handleNext} disabled={loading}>
-            {currentCard === cards.length - 1 ? (loading ? "Submitting..." : "Submit") : "Next"}
+            {currentCard === cards.length - 1
+              ? loading
+                ? "Submitting..."
+                : "Submit"
+              : "Next"}
           </button>
         </div>
       </form>
