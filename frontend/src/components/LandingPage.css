@@ -143,5 +143,37 @@
     flex: none;
     width: 100%;
   }
+
+.final-encouragement {
+  margin-top: 60px;
+  padding: 30px 20px;
+  background-color: var(--color-background-card, #f7fafc);
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(90, 155, 213, 0.15);
+  text-align: center; /* This centers inline content */
+  display: flex;
+  justify-content: center; /* horizontally center children */
+  align-items: center;     /* vertically center children if needed */
+  flex-direction: column;  /* stack children vertically */
+}
+
+.final-encouragement h3 {
+  font-family: "Lora", serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--color-primary-blue, #083f59);
+  margin: 0;
+  line-height: 1.2;
+  text-align: center; /* double ensure text is centered */
+}
+.final-encouragement {
+  width: 100%;
+  max-width: 720px; /* or whatever container width you want */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
 }
 

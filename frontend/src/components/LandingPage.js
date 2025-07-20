@@ -64,10 +64,9 @@ export default function LandingPage() {
       </section>
 
       <section className="final-encouragement">
-        <p>
-          Take the first step to a smarter, healthier study routine. Click below
-          to start your free survey and unlock your academic potential!
-        </p>
+        <h3>
+          Take the first step to a smarter, healthier study routine!
+        </h3>
       </section>
     </main>
   );

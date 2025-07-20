@@ -13,13 +13,28 @@
   z-index: 1000;
   font-family: "Roboto", sans-serif;
 }
-
 .navbar-logo {
+  display: flex;
+  align-items: center;
   color: white;
   font-weight: 700;
   font-size: 1.4rem;
   user-select: none;
 }
+
+.logo-image {
+  height: 36px;
+  margin-right: 12px;
+  object-fit: contain;
+}
+
+
+/*.navbar-logo {
+  color: white;
+  font-weight: 700;
+  font-size: 1.4rem;
+  user-select: none;
+}*/
 
 .navbar-links {
   display: flex;

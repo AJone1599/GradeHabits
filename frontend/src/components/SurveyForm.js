@@ -187,7 +187,6 @@ const cards = [
   },
 ];
 
-
 export default function SurveyForm() {
   const [currentCard, setCurrentCard] = useState(0);
   const [formData, setFormData] = useState({});
@@ -207,7 +206,7 @@ export default function SurveyForm() {
       if (q.required && (formData[q.name] === undefined || formData[q.name] === "")) {
         newErrors[q.name] = "This question is required";
       }
-      // Additional validation for number input type
+      
       if (
         q.type === "number" &&
         formData[q.name] !== undefined &&
@@ -230,7 +229,7 @@ export default function SurveyForm() {
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
-        alert("Survey submitted! (Replace with real submission)");
+        alert("Survey submitted!");
         // Optionally reset or navigate elsewhere
       }, 1500);
     }
