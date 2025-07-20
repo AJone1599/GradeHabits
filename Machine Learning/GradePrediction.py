@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 import joblib
 
-train_path = 'Dataset/complete_full_dataset.csv'
+train_path = 'complete_full_dataset.csv'
 
 def load_data():
     train_data = pd.read_csv(train_path)

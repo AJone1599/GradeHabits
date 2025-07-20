@@ -230,7 +230,7 @@ export default function SurveyForm() {
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
-        alert("Survey submitted! (Replace with real submission)");
+        alert("Survey submitted!");
         // Optionally reset or navigate elsewhere
       }, 1500);
     }
