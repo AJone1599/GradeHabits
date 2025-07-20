@@ -2,114 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SurveyForm.css";
 
-const cards = [
-  {
-    title: "🎓 Academic Background",
-    questions: [
-      {
-        name: "age",
-        type: "number",
-        question: "How old are you?",
-        required: true,
-      },
-      {
-        name: "applicationOrder",
-        type: "radio",
-        question: "Was this major your first choice when applying?",
-        options: [
-          { label: "First choice", value: "1" },
-          { label: "Second choice", value: "2" },
-          { label: "Third choice", value: "3" },
-          { label: "Fourth or later", value: "4+" }
-        ],
-        required: true,
-      },
-      {
-        name: "previousQualifications",
-        type: "number",
-        question: "How many academic qualifications (e.g., diplomas, certificates) did you earn before starting this program?",
-        required: true,
-      }
-    ],
-  },
-  {
-    title: "📖 Study Habits & Class Attendance",
-    questions: [
-      {
-        name: "studyTimeWeek",
-        type: "number",
-        question: "On average, how many hours per week do you study outside of class?",
-        required: true,
-      },
-      {
-        name: "attendance",
-        type: "number",
-        question: "Roughly how many classes do you attend per month?",
-        required: true,
-      },
-      {
-        name: "daytimeEveningClasses",
-        type: "radio",
-        question: "Are most of your classes scheduled during the daytime or in the evening?",
-        options: [
-          { label: "Daytime", value: "0" },
-          { label: "Evening", value: "1" }
-        ],
-        required: true,
-      }
-    ],
-  },
-  {
-    title: "🏃 Commitments Outside Class",
-    questions: [
-      {
-        name: "work",
-        type: "radio",
-        question: "Do you currently work part-time during the semester?",
-        options: [
-          { label: "Yes", value: "1" },
-          { label: "No", value: "0" }
-        ],
-        required: true,
-      },
-      {
-        name: "extracurriculars",
-        type: "radio",
-        question: "Are you actively involved in any extracurricular activities?",
-        options: [
-          { label: "Yes", value: "1" },
-          { label: "No", value: "0" }
-        ],
-        required: true,
-      }
-    ],
-  },
-  {
-    title: "🧠 Health & Well-being",
-    questions: [
-      {
-        name: "averageSleep",
-        type: "number",
-        question: "On average, how many hours do you sleep each day?",
-        required: true,
-      },
-      {
-        name: "entertainmentHours",
-        type: "number",
-        question: "How many hours per day do you spend on entertainment (e.g., video games, Netflix)?",
-        required: true,
-      },
-      {
-        name: "mentalHealth",
-        type: "likert",
-        question: "How would you rate your overall mental health this semester?",
-        scale: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-        scaleLabels: ["Best", "", "", "", "", "", "", "", "", "", "Worst"],
-        required: true,
-      }
-    ],
-  }
-];
+// 1️⃣ Import the JSON you created
+import surveyData from "../data/surveyQuestions.json";
+
+// 2️⃣ Use its `cards` array
+const cards = surveyData.cards;
 
 export default function SurveyForm() {
   const [currentCard, setCurrentCard] = useState(0);
@@ -119,15 +16,15 @@ export default function SurveyForm() {
   const navigate = useNavigate();
 
   const handleChange = (name, value) => {
-    setFormData(prev => ({ ...prev, [name]: value }));
-    setErrors(prev => ({ ...prev, [name]: null }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: null }));
   };
 
   const validateCard = () => {
     const card = cards[currentCard];
     const newErrors = {};
 
-    card.questions.forEach(q => {
+    card.questions.forEach((q) => {
       const val = formData[q.name];
       if (q.required && (val === undefined || val === "")) {
         newErrors[q.name] = "This question is required";
@@ -161,7 +58,7 @@ export default function SurveyForm() {
     if (currentCard > 0) setCurrentCard(currentCard - 1);
   };
 
-  const renderQuestion = q => {
+  const renderQuestion = (q) => {
     switch (q.type) {
       case "number":
         return (
@@ -175,7 +72,7 @@ export default function SurveyForm() {
               type="number"
               min="0"
               value={formData[q.name] || ""}
-              onChange={e => handleChange(q.name, e.target.value)}
+              onChange={(e) => handleChange(q.name, e.target.value)}
             />
             {errors[q.name] && <p className="error">{errors[q.name]}</p>}
           </div>
@@ -186,7 +83,7 @@ export default function SurveyForm() {
           <div key={q.name} className="question-block">
             <label className="question-text">{q.question}</label>
             <div className="radio-options">
-              {q.options.map(opt => (
+              {q.options.map((opt) => (
                 <label key={opt.value} className="radio-label">
                   <input
                     type="radio"
@@ -237,7 +134,6 @@ export default function SurveyForm() {
       </h2>
       <form>
         {cards[currentCard].questions.map(renderQuestion)}
-
         <div className="form-navigation">
           <button type="button" onClick={handleBack} disabled={currentCard === 0}>
             Back
