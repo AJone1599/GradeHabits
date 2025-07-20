@@ -1,191 +1,114 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ ADDED
+import { useNavigate } from "react-router-dom";
 import "./SurveyForm.css";
 
 const cards = [
- {
-   title: "💤 Sleep & Rest",
-   questions: [
-     {
-       name: "sleepHours",
-       type: "radio",
-       question: "How many hours of sleep do you usually get on a school night?",
-       options: ["Less than 4", "4–5", "6–7", "8 or more"],
-       required: true,
-     },
-     {
-       name: "feelRested",
-       type: "likert",
-       question: "Do you feel rested when you wake up for class?",
-       scale: [1, 2, 3, 4, 5],
-       scaleLabels: ["Never", "", "", "", "Always"],
-       required: true,
-     },
-   ],
- },
- {
-   title: "📖 Study Habits",
-   questions: [
-     {
-       name: "studyHours",
-       type: "number",
-       question: "How many hours do you study outside of class per week?",
-       required: true,
-     },
-     {
-       name: "studyTechniques",
-       type: "likert",
-       question: "When you study, how often do you use techniques like flashcards, quizzes, or spaced repetition?",
-       scale: [1, 2, 3, 4, 5],
-       scaleLabels: ["Never", "", "", "", "Always"],
-       required: true,
-     },
-     {
-       name: "studySchedule",
-       type: "radio",
-       question: "Do you have a regular study schedule?",
-       options: ["Yes", "No", "Sometimes"],
-       required: true,
-     },
-   ],
- },
- {
-   title: "📱 Technology & Distractions",
-   questions: [
-     {
-       name: "socialMediaHours",
-       type: "radio",
-       question: "How many hours per day do you spend on social media?",
-       options: ["Less than 1", "1–3", "3–5", "More than 5"],
-       required: true,
-     },
-     {
-       name: "phoneDistraction",
-       type: "likert",
-       question: "Do you get distracted by your phone while studying?",
-       scale: [1, 2, 3, 4, 5],
-       scaleLabels: ["Never", "", "", "", "Always"],
-       required: true,
-     },
-   ],
- },
- {
-   title: "🎓 Class Engagement",
-   questions: [
-     {
-       name: "classAttendance",
-       type: "radio",
-       question: "How often do you attend your scheduled classes?",
-       options: ["Always", "Most of the time", "Sometimes", "Rarely"],
-       required: true,
-     },
-     {
-       name: "classParticipation",
-       type: "likert",
-       question: "How often do you participate in class (ask questions, join discussions)?",
-       scale: [1, 2, 3, 4, 5],
-       scaleLabels: ["Never", "", "", "", "Very often"],
-       required: true,
-     },
-   ],
- },
- {
-   title: "🧠 Mental & Physical Health",
-   questions: [
-     {
-       name: "stressFrequency",
-       type: "likert",
-       question: "How often do you feel stressed or anxious during the semester?",
-       scale: [1, 2, 3, 4, 5],
-       scaleLabels: ["Never", "", "", "", "All the time"],
-       required: true,
-     },
-     {
-       name: "exerciseFrequency",
-       type: "radio",
-       question: "How often do you exercise (e.g., walk, gym, sports)?",
-       options: ["Never", "1–2 times/week", "3–4 times/week", "5+ times/week"],
-       required: true,
-     },
-   ],
- },
- {
-   title: "⏰ Time & Task Management",
-   questions: [
-     {
-       name: "assignmentCompletion",
-       type: "likert",
-       question: "How often do you complete assignments before the deadline?",
-       scale: [1, 2, 3, 4, 5],
-       scaleLabels: ["Never", "", "", "", "Always"],
-       required: true,
-     },
-     {
-       name: "usePlanner",
-       type: "radio",
-       question: "Do you use any tools or planners to manage your time?",
-       options: ["Yes", "No"],
-       required: true,
-     },
-     {
-       name: "plannerDetails",
-       type: "text",
-       question: "If yes: Which one? (Optional)",
-       required: false,
-       dependsOn: "usePlanner",
-       dependsValue: "Yes",
-     },
-   ],
- },
- {
-   title: "🏠 Life Outside School",
-   questions: [
-     {
-       name: "partTimeJob",
-       type: "radio",
-       question: "Do you work a part-time job during the semester?",
-       options: ["Yes", "No"],
-       required: true,
-     },
-     {
-       name: "jobHours",
-       type: "number",
-       question: "If yes: How many hours per week?",
-       required: false,
-       dependsOn: "partTimeJob",
-       dependsValue: "Yes",
-     },
-     {
-       name: "studyEnvironment",
-       type: "likert",
-       question: "Do you live in a quiet and stable environment conducive to studying?",
-       scale: [1, 2, 3, 4, 5],
-       scaleLabels: ["Not at all", "", "", "", "Very much"],
-       required: true,
-     },
-   ],
- },
- {
-   title: "📈 Self-Perception & Mindset",
-   questions: [
-     {
-       name: "academicConfidence",
-       type: "likert",
-       question: "How confident are you in your ability to succeed academically?",
-       scale: [1, 2, 3, 4, 5],
-       scaleLabels: ["Not confident", "", "", "", "Very confident"],
-       required: true,
-     },
-     {
-       name: "responseToBadGrade",
-       type: "likert",
-       question: "When you get a bad grade, how likely are you to try harder next time instead of giving up?",
-       scale: [1, 2, 3, 4, 5],
-       scaleLabels: ["Not likely", "", "", "", "Very likely"],
-       required: true,
-     },
-   ],
- },
+  {
+    title: "🎓 Academic Background",
+    questions: [
+      {
+        name: "age",
+        type: "number",
+        question: "How old are you?",
+        required: true,
+      },
+      {
+        name: "applicationOrder",
+        type: "radio",
+        question: "Was this major your first choice when applying?",
+        options: [
+          { label: "First choice", value: "1" },
+          { label: "Second choice", value: "2" },
+          { label: "Third choice", value: "3" },
+          { label: "Fourth or later", value: "4+" }
+        ],
+        required: true,
+      },
+      {
+        name: "previousQualifications",
+        type: "number",
+        question: "How many academic qualifications (e.g., diplomas, certificates) did you earn before starting this program?",
+        required: true,
+      }
+    ],
+  },
+  {
+    title: "📖 Study Habits & Class Attendance",
+    questions: [
+      {
+        name: "studyTimeWeek",
+        type: "number",
+        question: "On average, how many hours per week do you study outside of class?",
+        required: true,
+      },
+      {
+        name: "attendance",
+        type: "number",
+        question: "Roughly how many classes do you attend per month?",
+        required: true,
+      },
+      {
+        name: "daytimeEveningClasses",
+        type: "radio",
+        question: "Are most of your classes scheduled during the daytime or in the evening?",
+        options: [
+          { label: "Daytime", value: "0" },
+          { label: "Evening", value: "1" }
+        ],
+        required: true,
+      }
+    ],
+  },
+  {
+    title: "🏃 Commitments Outside Class",
+    questions: [
+      {
+        name: "work",
+        type: "radio",
+        question: "Do you currently work part-time during the semester?",
+        options: [
+          { label: "Yes", value: "1" },
+          { label: "No", value: "0" }
+        ],
+        required: true,
+      },
+      {
+        name: "extracurriculars",
+        type: "radio",
+        question: "Are you actively involved in any extracurricular activities?",
+        options: [
+          { label: "Yes", value: "1" },
+          { label: "No", value: "0" }
+        ],
+        required: true,
+      }
+    ],
+  },
+  {
+    title: "🧠 Health & Well-being",
+    questions: [
+      {
+        name: "averageSleep",
+        type: "number",
+        question: "On average, how many hours do you sleep each day?",
+        required: true,
+      },
+      {
+        name: "entertainmentHours",
+        type: "number",
+        question: "How many hours per day do you spend on entertainment (e.g., video games, Netflix)?",
+        required: true,
+      },
+      {
+        name: "mentalHealth",
+        type: "likert",
+        question: "How would you rate your overall mental health this semester?",
+        scale: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        scaleLabels: ["Best", "", "", "", "", "", "", "", "", "", "Worst"],
+        required: true,
+      }
+    ],
+  }
 ];
 
 export default function SurveyForm() {
@@ -193,29 +116,27 @@ export default function SurveyForm() {
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-
-  const navigate = useNavigate(); // ✅ ADDED
+  const navigate = useNavigate();
 
   const handleChange = (name, value) => {
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => ({ ...prev, [name]: null }));
+    setFormData(prev => ({ ...prev, [name]: value }));
+    setErrors(prev => ({ ...prev, [name]: null }));
   };
 
   const validateCard = () => {
     const card = cards[currentCard];
     const newErrors = {};
 
-    card.questions.forEach((q) => {
-      if (q.required && (formData[q.name] === undefined || formData[q.name] === "")) {
+    card.questions.forEach(q => {
+      const val = formData[q.name];
+      if (q.required && (val === undefined || val === "")) {
         newErrors[q.name] = "This question is required";
       }
-
-      if (
-        q.type === "number" &&
-        formData[q.name] !== undefined &&
-        (isNaN(formData[q.name]) || formData[q.name] < 0)
-      ) {
-        newErrors[q.name] = "Please enter a valid positive number";
+      if (q.type === "number" && val !== undefined) {
+        const num = Number(val);
+        if (isNaN(num) || num < 0) {
+          newErrors[q.name] = "Please enter a valid positive number";
+        }
       }
     });
 
@@ -228,11 +149,10 @@ export default function SurveyForm() {
     if (currentCard < cards.length - 1) {
       setCurrentCard(currentCard + 1);
     } else {
-      // Final submission
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
-        navigate("/results"); // ✅ CHANGED: go to results page
+        navigate("/results");
       }, 1500);
     }
   };
@@ -241,81 +161,88 @@ export default function SurveyForm() {
     if (currentCard > 0) setCurrentCard(currentCard - 1);
   };
 
-  const renderQuestion = (q) => {
-    if (q.type === "radio") {
-      return (
-        <fieldset key={q.name}>
-          <legend>{q.question}</legend>
-          {q.options.map((opt) => (
-            <label key={opt} className="radio-label">
-              <input
-                type="radio"
-                name={q.name}
-                value={opt}
-                checked={formData[q.name] === opt}
-                onChange={() => handleChange(q.name, opt)}
-              />
-              {opt}
+  const renderQuestion = q => {
+    switch (q.type) {
+      case "number":
+        return (
+          <div key={q.name} className="question-block">
+            <label htmlFor={q.name} className="question-text">
+              {q.question}
             </label>
-          ))}
-          {errors[q.name] && <p className="error">{errors[q.name]}</p>}
-        </fieldset>
-      );
-    }
-
-    if (q.type === "likert") {
-      return (
-        <fieldset key={q.name} className="likert-scale">
-          <legend>{q.question}</legend>
-          <div className="likert-options">
-            {q.scale.map((val, i) => (
-              <label key={val} className="likert-label">
-                <input
-                  type="radio"
-                  name={q.name}
-                  value={val}
-                  checked={formData[q.name] === val}
-                  onChange={() => handleChange(q.name, val)}
-                />
-                {q.scaleLabels ? q.scaleLabels[i] : val}
-              </label>
-            ))}
+            <input
+              id={q.name}
+              name={q.name}
+              type="number"
+              min="0"
+              value={formData[q.name] || ""}
+              onChange={e => handleChange(q.name, e.target.value)}
+            />
+            {errors[q.name] && <p className="error">{errors[q.name]}</p>}
           </div>
-          {errors[q.name] && <p className="error">{errors[q.name]}</p>}
-        </fieldset>
-      );
-    }
+        );
 
-    if (q.type === "number") {
-      return (
-        <label key={q.name} htmlFor={q.name}>
-          {q.question}
-          <input
-            id={q.name}
-            name={q.name}
-            type="number"
-            min="0"
-            value={formData[q.name] || ""}
-            onChange={(e) => handleChange(q.name, e.target.value)}
-          />
-          {errors[q.name] && <p className="error">{errors[q.name]}</p>}
-        </label>
-      );
-    }
+      case "radio":
+        return (
+          <div key={q.name} className="question-block">
+            <label className="question-text">{q.question}</label>
+            <div className="radio-options">
+              {q.options.map(opt => (
+                <label key={opt.value} className="radio-label">
+                  <input
+                    type="radio"
+                    name={q.name}
+                    value={opt.value}
+                    checked={formData[q.name] === opt.value}
+                    onChange={() => handleChange(q.name, opt.value)}
+                  />
+                  {opt.label}
+                </label>
+              ))}
+            </div>
+            {errors[q.name] && <p className="error">{errors[q.name]}</p>}
+          </div>
+        );
 
-    return null;
+      case "likert":
+        return (
+          <div key={q.name} className="question-block likert-block">
+            <label className="question-text">{q.question}</label>
+            <div className="likert-options">
+              {q.scale.map((val, i) => (
+                <label key={val} className="likert-label">
+                  <input
+                    type="radio"
+                    name={q.name}
+                    value={val}
+                    checked={formData[q.name] === val}
+                    onChange={() => handleChange(q.name, val)}
+                  />
+                  {q.scaleLabels[i] || val}
+                </label>
+              ))}
+            </div>
+            {errors[q.name] && <p className="error">{errors[q.name]}</p>}
+          </div>
+        );
+
+      default:
+        return null;
+    }
   };
 
   return (
     <div className="survey-container" role="main" aria-labelledby="survey-heading">
-      <h2 id="survey-heading">{cards[currentCard].title}</h2>
+      <h2 id="survey-heading" className="survey-title">
+        {cards[currentCard].title}
+      </h2>
       <form>
         {cards[currentCard].questions.map(renderQuestion)}
+
         <div className="form-navigation">
           <button type="button" onClick={handleBack} disabled={currentCard === 0}>
             Back
           </button>
-          <span>
+          <span className="progress">
             {currentCard + 1} / {cards.length}
           </span>
           <button type="button" onClick={handleNext} disabled={loading}>

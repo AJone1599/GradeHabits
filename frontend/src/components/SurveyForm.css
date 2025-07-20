@@ -1,37 +1,60 @@
-/* Improved SurveyForm.css */
+/* SurveyForm.css */
 
+:root {
+  --color-background-card: #fff;
+  --color-text-main: #2c3e50;
+  --color-primary-blue: #083f59;
+  --color-primary-blue-light: #5a9bd5;
+  --color-white: #fff;
+}
+
+/* Container & Title */
 .survey-container {
   max-width: 600px;
   margin: 80px auto 50px;
-  padding: 40px 40px 50px;
-  background-color: var(--color-background-card, #fff);
+  padding: 40px;
+  background-color: var(--color-background-card);
   border-radius: 24px;
   box-shadow: 0 12px 30px rgba(90, 155, 213, 0.15);
-  font-family: "Open Sans", sans-serif;
-  color: var(--color-text-main, #2c3e50);
   display: flex;
   flex-direction: column;
+  font-family: "Open Sans", sans-serif;
+  color: var(--color-text-main);
 }
 
-.survey-container h2 {
+.survey-title {
   font-family: "Lora", serif;
   font-size: 2.6rem;
   font-weight: 700;
-  color: var(--color-primary-blue, #083f59);
+  color: var(--color-primary-blue);
   text-align: center;
   margin-bottom: 40px;
-  letter-spacing: 0.02em;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
 }
 
+/* Form & Fieldsets */
 form {
   display: flex;
   flex-direction: column;
   gap: 35px;
   flex-grow: 1;
+}
+
+.question-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.question-text {
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text-main);
+  margin-bottom: 0.5rem;
+  display: block;
 }
 
 fieldset {
@@ -40,86 +63,83 @@ fieldset {
   margin: 0;
 }
 
-legend {
-  font-weight: 700;
-  font-size: 1.25rem;
-  margin-bottom: 20px;
-  color: var(--color-primary-blue, #083f59);
-}
-
-/* Radio labels styling for vertical groups */
-.radio-label {
-  display: flex;
-  align-items: center;
-  margin-bottom: 14px;
-  cursor: pointer;
-  font-weight: 600;
-  user-select: none;
-  font-size: 1.1rem;
-}
-
-input[type="radio"] {
-  margin-right: 14px;
-  cursor: pointer;
-  width: 20px;
-  height: 20px;
-  accent-color: var(--color-primary-blue, #083f59);
-}
-
-/* Number input styling */
+/* Number Inputs */
 input[type="number"] {
   padding: 12px 16px;
   font-size: 1.1rem;
   border-radius: 16px;
-  border: 1.8px solid var(--color-primary-blue, #5a9bd5);
+  border: 1.8px solid var(--color-primary-blue-light);
   box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.07);
   width: 100%;
   max-width: 160px;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 input[type="number"]:focus {
   outline: none;
-  border-color: #3e73cc;
-  box-shadow: 0 0 12px #3e73ccaa;
+  border-color: var(--color-primary-blue);
+  box-shadow: 0 0 12px rgba(62, 115, 204, 0.7);
 }
 
-/* Likert scale container */
-.likert-scale {
-  margin-top: 10px;
+/* Radio Options */
+.radio-options {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
-.likert-scale legend {
-  margin-bottom: 14px;
+.radio-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+
+  /* ensure same font as questions */
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text-main);
 }
 
-.likert-options {
+.radio-label input[type="radio"] {
+  margin-right: 14px;
+  width: 20px;
+  height: 20px;
+  accent-color: var(--color-primary-blue);
+  cursor: pointer;
+}
+
+/* Likert Scale */
+.likert-block .likert-options {
   display: flex;
   justify-content: space-between;
-  max-width: 420px;
-  margin-top: 0;
   gap: 20px;
+  max-width: 420px;
+  margin-bottom: 10px;
 }
 
 .likert-label {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-weight: 600;
-  user-select: none;
-  font-size: 1rem;
-  color: var(--color-text-main, #2c3e50);
   cursor: pointer;
-  min-width: 40px;
+  user-select: none;
+
+  /* ensure same font as questions */
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text-main);
 }
 
 .likert-label input[type="radio"] {
-  margin: 0 0 8px 0;
+  margin-bottom: 8px;
   width: 20px;
   height: 20px;
+  accent-color: var(--color-primary-blue);
 }
 
-/* Error messages */
+/* Error Messages */
 .error {
   color: #d9534f;
   font-size: 0.9rem;
@@ -128,7 +148,7 @@ input[type="number"]:focus {
   font-style: italic;
 }
 
-/* Navigation buttons and progress */
+/* Navigation */
 .form-navigation {
   display: flex;
   justify-content: space-between;
@@ -138,16 +158,16 @@ input[type="number"]:focus {
 }
 
 .form-navigation button {
-  background-color: var(--color-primary-blue, #5a9bd5);
+  background-color: var(--color-primary-blue-light);
   border: none;
   padding: 16px 36px;
   border-radius: 30px;
-  color: var(--color-white, #fff);
+  color: var(--color-white);
   font-weight: 700;
   font-size: 1.2rem;
   cursor: pointer;
   box-shadow: 0 8px 25px rgba(90, 155, 213, 0.3);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  transition: background-color 0.3s, box-shadow 0.3s;
   min-width: 100px;
   text-align: center;
 }
@@ -159,24 +179,24 @@ input[type="number"]:focus {
 }
 
 .form-navigation button:hover:not(:disabled) {
-  background-color: #3e73cc;
+  background-color: var(--color-primary-blue);
   box-shadow: 0 10px 30px rgba(62, 115, 204, 0.5);
 }
 
-.form-navigation span {
+.form-navigation .progress {
   font-weight: 700;
-  color: var(--color-text-main, #2c3e50);
   font-size: 1.1rem;
+  color: var(--color-text-main);
   user-select: none;
   min-width: 50px;
   text-align: center;
 }
 
-/* Responsive adjustments */
+/* Responsive */
 @media (max-width: 640px) {
   .survey-container {
     margin: 60px 15px 40px;
-    padding: 30px 25px 40px;
+    padding: 30px;
   }
 
   .form-navigation {
@@ -188,11 +208,11 @@ input[type="number"]:focus {
     padding: 14px 0;
   }
 
-  .form-navigation span {
+  .form-navigation .progress {
     margin: 12px 0;
   }
 
-  .likert-options {
+  .likert-block .likert-options {
     gap: 12px;
   }
 }
