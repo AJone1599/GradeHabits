@@ -1,50 +1,44 @@
 .results-container {
   max-width: 600px;
-  margin: 100px auto 50px; /* space for navbar */
-  padding: 40px 30px; /* slightly more padding for comfort */
-  background-color: #e6f2f0; /* soft mint */
-  border-radius: 20px; /* slightly rounder corners */
-  box-shadow: 0 8px 25px rgba(49, 112, 142, 0.15);
+  margin: 100px auto 50px;
+  padding: 30px 25px;
+  background-color: #e6f2f0;
+  border-radius: 18px;
+  box-shadow: 0 6px 20px rgba(49, 112, 142, 0.15);
   font-family: "Roboto", sans-serif;
   color: #1d2d29;
   text-align: center;
-  transition: background-color 0.3s ease;
 }
 
 .results-container.no-data {
   font-style: italic;
-  color: #606060;
 }
 
-h2 {
-  font-size: 2.4rem; /* a bit larger for better hierarchy */
+.results-container h2 {
+  font-size: 2.2rem;
   font-weight: 900;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   color: #31708e;
 }
 
 .gpa {
-  font-size: 5.5rem;
+  font-size: 5rem;
   font-weight: 900;
-  margin-bottom: 40px;
-  letter-spacing: 2px; /* spacing between numbers for clarity */
+  margin-bottom: 30px;
 }
 
-h3 {
-  font-size: 1.5rem;
+.results-container h3 {
+  font-size: 1.4rem;
   font-weight: 700;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
   color: #4ba3c3;
 }
 
 .feedback {
-  font-size: 1.15rem;
-  line-height: 1.7;
-  margin-bottom: 40px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
   color: #42545f;
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .results-buttons {
@@ -57,25 +51,22 @@ h3 {
   background-color: #31708e;
   color: white;
   font-weight: 700;
-  padding: 16px 36px;
+  padding: 14px 30px;
   border: none;
-  border-radius: 18px;
+  border-radius: 16px;
   cursor: pointer;
-  font-size: 1.15rem;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
 }
 
 .results-buttons button:hover {
   background-color: #4ba3c3;
-  transform: translateY(-2px);
 }
-
-/* Responsive */
 
 @media (max-width: 640px) {
   .results-container {
     margin: 100px 15px 50px;
-    padding: 30px 20px;
+    padding: 20px 15px;
   }
 
   .results-buttons {
