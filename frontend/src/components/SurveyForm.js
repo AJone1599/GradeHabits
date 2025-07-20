@@ -51,8 +51,8 @@ export default function SurveyForm() {
 
   const handleSubmit = (e) => {
     if (e) e.preventDefault();
-    // Convert number fields to numbers
-    const payload = { ...formData };
+    // Convert number fields to numbers and ensure 'displaced' is always 0
+    const payload = { ...formData, displaced: 0 };
     const numberFields = [
       "age",
       "application_order",
