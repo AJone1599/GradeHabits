@@ -8,7 +8,10 @@ export default function NavBar() {
 
   return (
     <nav className="navbar">
-      <div className="navbar-logo">GradeHabits</div>
+      <div className="navbar-logo">
+        <img src={logo} alt="GradeHabits Logo" className="logo-image" />
+        GradeHabits
+      </div>
       <div className="navbar-links">
         <NavLink
           to="/"

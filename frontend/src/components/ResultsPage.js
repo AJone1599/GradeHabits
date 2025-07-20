@@ -6,27 +6,23 @@ export default function ResultsPage() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Retrieve passed survey data and predicted GPA from location state
-  const { formData, predictedGPA, feedback } = location.state || {};
+  // Get prediction data from navigation state
+  const { predictedGPA, feedback } = location.state || {};
 
-  // Simple GPA color coding
-  const gpaColor =
-    predictedGPA >= 3.5
-      ? "#4caf50" // green
-      : predictedGPA >= 2.5
-      ? "#ff9800" // orange
-      : "#f44336"; // red
-
-  // If no data, prompt to do survey
-  if (!formData || predictedGPA === undefined) {
+  // If no prediction data, prompt to take survey
+  if (!predictedGPA) {
     return (
       <div className="results-container no-data">
-        <h2>No Results Yet</h2>
-        <p>Please complete the survey first.</p>
+        <h2>No Results Available</h2>
+        <p>Please complete the survey first to see your results.</p>
         <button onClick={() => navigate("/survey")}>Go to Survey</button>
       </div>
     );
   }
+
+  // Color code GPA for visualization
+  const gpaColor =
+    predictedGPA >= 3.5 ? "#4caf50" : predictedGPA >= 2.5 ? "#ff9800" : "#f44336";
 
   return (
     <div className="results-container">
@@ -36,7 +32,7 @@ export default function ResultsPage() {
       </p>
 
       <h3>Personalized Feedback</h3>
-      <p className="feedback">{feedback || "Keep up your good habits and improve where you can!"}</p>
+      <p className="feedback">{feedback || "Keep up the great work and continue improving!"}</p>
 
       <div className="results-buttons">
         <button onClick={() => navigate("/survey")}>Retake Survey</button>
@@ -45,4 +41,3 @@ export default function ResultsPage() {
     </div>
   );
 }
-

@@ -1,4 +1,4 @@
-/* SurveyForm.css */
+/* Improved SurveyForm.css */
 
 .survey-container {
   max-width: 600px;
@@ -56,19 +56,14 @@ legend {
   font-weight: 600;
   user-select: none;
   font-size: 1.1rem;
-  gap: 12px;
 }
 
 input[type="radio"] {
+  margin-right: 14px;
+  cursor: pointer;
   width: 20px;
   height: 20px;
-  cursor: pointer;
   accent-color: var(--color-primary-blue, #083f59);
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
-}
-
-input[type="radio"]:hover {
-  border-color: #3e73cc;
 }
 
 /* Number input styling */
@@ -76,15 +71,14 @@ input[type="number"] {
   padding: 12px 16px;
   font-size: 1.1rem;
   border-radius: 16px;
-  border: 1.8px solid #4a8aca; /* softened blue */
+  border: 1.8px solid var(--color-primary-blue, #5a9bd5);
   box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.07);
   width: 100%;
   max-width: 160px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: border-color 0.3s ease;
 }
 
-input[type="number"]:focus,
-input[type="number"]:hover {
+input[type="number"]:focus {
   outline: none;
   border-color: #3e73cc;
   box-shadow: 0 0 12px #3e73ccaa;
@@ -117,7 +111,6 @@ input[type="number"]:hover {
   color: var(--color-text-main, #2c3e50);
   cursor: pointer;
   min-width: 40px;
-  padding: 6px 0;
 }
 
 .likert-label input[type="radio"] {
@@ -128,10 +121,10 @@ input[type="number"]:hover {
 
 /* Error messages */
 .error {
-  color: #e05c59;
+  color: #d9534f;
   font-size: 0.9rem;
   margin-top: 6px;
-  font-weight: 600;
+  font-weight: 700;
   font-style: italic;
 }
 
@@ -155,7 +148,7 @@ input[type="number"]:hover {
   cursor: pointer;
   box-shadow: 0 8px 25px rgba(90, 155, 213, 0.3);
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  min-width: 120px;
+  min-width: 100px;
   text-align: center;
 }
 
@@ -200,6 +193,6 @@ input[type="number"]:hover {
   }
 
   .likert-options {
-    gap: 16px;
+    gap: 12px;
   }
 }
