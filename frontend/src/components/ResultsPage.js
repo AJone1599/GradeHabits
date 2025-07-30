@@ -6,11 +6,13 @@ export default function ResultsPage() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Get prediction data from navigation state
-  const { predictedGPA, feedback } = location.state || {};
+  // Get backend response from navigation state
+  const result = location.state?.result;
+  const predictedGPA = result?.prediction;
+  const aiResponse = result?.responseFromAI;
 
   // If no prediction data, prompt to take survey
-  if (!predictedGPA) {
+  if (predictedGPA === undefined) {
     return (
       <div className="results-container no-data">
         <h2>No Results Available</h2>
@@ -28,11 +30,11 @@ export default function ResultsPage() {
     <div className="results-container">
       <h2>Your Predicted GPA</h2>
       <p className="gpa" style={{ color: gpaColor }}>
-        {predictedGPA.toFixed(2)}
+        {Number(predictedGPA).toFixed(2)}
       </p>
 
       <h3>Personalized Feedback</h3>
-      <p className="feedback">{feedback || "Keep up the great work and continue improving!"}</p>
+      <p className="feedback">{aiResponse || "Keep up the great work and continue improving!"}</p>
 
       <div className="results-buttons">
         <button onClick={() => navigate("/survey")}>Retake Survey</button>
